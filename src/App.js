@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
+import { Button, FormControl, Input, InputLabel } from '@mui/material';
+
 
 function App() {
   //state (short term memory)
@@ -7,9 +9,14 @@ function App() {
   const [input, setInput] = useState('');
 
   const addTodo = (event) => {
+    //stop REFRESH
+    event.preventDefault();
     // This will fire when we click the button
     setTodos([...todos, input]);
     
+    //Reset field to blank
+    setInput(''); 
+
 
   }
 
@@ -17,8 +24,21 @@ function App() {
   return (
     <div className="App">
       <h1>Hello World</h1>
-      <input val={input} onChange={event => setInput(event.target.value)}/>
-      <button onClick={addTodo}>Add Todo</button>
+
+      <form>
+        <FormControl>
+          <InputLabel> Write  A Todo</InputLabel>
+          <Input value={input} onChange={event => setInput(event.target.value)}/>
+        </FormControl>
+
+        <Button disabled={!input} type="submit" onClick={addTodo} variant="contained" 
+          color="primary">
+            Add Event
+        </Button>
+        
+        
+      </form>
+      
       <ul>
         {todos.map(todo => (
           <li>{todo}</li>
