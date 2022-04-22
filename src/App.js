@@ -2,17 +2,27 @@ import React, { useState } from 'react';
 import './App.css';
 
 function App() {
+  //state (short term memory)
+  const [todos, setTodos] = useState(['Go tto the store', 'Take dogs for a walk', 'take out the rubbish']);
+  const [input, setInput] = useState('');
 
-  const [todos, setTodos] = useState([]);
-  
+  const addTodo = (event) => {
+    // This will fire when we click the button
+    setTodos([...todos, input]);
+    
+
+  }
+
+
   return (
     <div className="App">
       <h1>Hello World</h1>
-      <input />
-      <button>Add Todo</button>
+      <input val={input} onChange={event => setInput(event.target.value)}/>
+      <button onClick={addTodo}>Add Todo</button>
       <ul>
-        <li>Take dogs for a walk</li>
-        <li>Take the rubbish out</li>
+        {todos.map(todo => (
+          <li>{todo}</li>
+        ))}
       </ul>
     </div>
   );
